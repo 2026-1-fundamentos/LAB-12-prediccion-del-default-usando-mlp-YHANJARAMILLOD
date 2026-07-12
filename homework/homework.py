@@ -100,20 +100,20 @@ y_test_pred = busqueda.predict(x_test)
 test_precision_metrics = {
     "type": "metrics",
     "dataset": "test",
-    "precision": round(precision_score(y_test, y_test_pred, zero_division=0), 4),
-    "balanced_accuracy": round(balanced_accuracy_score(y_test, y_test_pred), 4),
-    "recall": round(recall_score(y_test, y_test_pred, zero_division=0), 4),
-    "f1_score": round(f1_score(y_test, y_test_pred, zero_division=0), 4),
+    "precision": float(precision_score(y_test, y_test_pred, zero_division=0)),
+    "balanced_accuracy": float(balanced_accuracy_score(y_test, y_test_pred)),
+    "recall": float(recall_score(y_test, y_test_pred, zero_division=0)),
+    "f1_score": float(f1_score(y_test, y_test_pred, zero_division=0)),
 }
 
 y_train_pred = busqueda.predict(x_train)
 train_precision_metrics = {
     "type": "metrics",
     "dataset": "train",
-    "precision": round(precision_score(y_train, y_train_pred, zero_division=0), 4),
-    "balanced_accuracy": round(balanced_accuracy_score(y_train, y_train_pred), 4),
-    "recall": round(recall_score(y_train, y_train_pred, zero_division=0), 4),
-    "f1_score": round(f1_score(y_train, y_train_pred, zero_division=0), 2),
+    "precision": float(precision_score(y_train, y_train_pred, zero_division=0)),
+    "balanced_accuracy": float((balanced_accuracy_score(y_train, y_train_pred))),
+    "recall": float(recall_score(y_train, y_train_pred, zero_division=0)),
+    "f1_score": float(f1_score(y_train, y_train_pred, zero_division=0)),
 }
 
 # Calcular matrices de confusión
