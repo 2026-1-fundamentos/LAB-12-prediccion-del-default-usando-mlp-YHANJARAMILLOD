@@ -121,7 +121,7 @@ from sklearn.metrics import (  # type: ignore
 from sklearn.model_selection import GridSearchCV  # type: ignore
 from sklearn.neural_network import MLPClassifier  # type: ignore
 from sklearn.pipeline import Pipeline  # type: ignore
-from sklearn.preprocessing import OneHotEncoder, StandardScaler  # type: ignore
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder, StandardScaler  # type: ignore
 
 
 def cargar_datos(ruta_zip):
@@ -166,15 +166,16 @@ def construir_y_optimizar_pipeline(x_train, y_train):
     preprocesador = ColumnTransformer(
         transformers=[
             ("cat", OneHotEncoder(), columnas_categoricas),
-            ("scaler", StandardScaler(), columnas_numericas),
+            ("num", MinMaxScaler(), columnas_numericas)
         ]
     )
 
     pipeline = Pipeline(
         steps=[
             ("preprocessor", preprocesador),
-            ("feature_selection", SelectKBest(score_func=f_classif)),
-            ("pca", PCA()),
+            ("pca", PCA()),                              # 1. PCA primero, con todas las componentes
+            #("scaler", MinMaxScaler()),                   # 2. Escala [0,1] DESPUÉS del PCA
+            ("feature_selection", SelectKBest(score_func=f_classif)),  # 3. Selecciona K mejores
             ("classifier", MLPClassifier(max_iter=15000, random_state=21)),
         ]
     )
@@ -192,8 +193,9 @@ def construir_y_optimizar_pipeline(x_train, y_train):
         parametros,
         cv=10,
         scoring="balanced_accuracy",
-        n_jobs=1,
+        n_jobs=6,
         refit=True,
+        verbose=3
     )
 
     modelo.fit(x_train, y_train)
