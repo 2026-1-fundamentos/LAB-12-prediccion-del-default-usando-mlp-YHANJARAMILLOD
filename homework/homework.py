@@ -174,7 +174,7 @@ def construir_y_optimizar_pipeline(x_train, y_train):
         steps=[
             ("preprocessor", preprocesador),
             ("pca", PCA()),                              # 1. PCA primero, con todas las componentes
-            #("scaler", MinMaxScaler()),                   # 2. Escala [0,1] DESPUÉS del PCA
+            ("scaler", MinMaxScaler()),                   # 2. Escala [0,1] DESPUÉS del PCA
             ("feature_selection", SelectKBest(score_func=f_classif)),  # 3. Selecciona K mejores
             ("classifier", MLPClassifier(max_iter=15000, random_state=21)),
         ]
