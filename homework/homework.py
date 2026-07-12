@@ -61,7 +61,7 @@ pipeline = Pipeline([
     ("preprocessor", preprocessor),
     ('feature_selection', SelectKBest(score_func=f_classif)),
     ('pca', PCA()),
-    ('classifier', MLPClassifier(max_iter=15000, random_state=21))
+    ('classifier', MLPClassifier(max_iter=15000, random_state=17))
 ])
 
 # Optimizar hiperparámetros
@@ -100,20 +100,20 @@ y_test_pred = busqueda.predict(x_test)
 test_precision_metrics = {
     "type": "metrics",
     "dataset": "test",
-    "precision": precision_score(y_test, y_test_pred, zero_division=0),
-    "balanced_accuracy": balanced_accuracy_score(y_test, y_test_pred),
-    "recall": recall_score(y_test, y_test_pred, zero_division=0),
-    "f1_score": f1_score(y_test, y_test_pred, zero_division=0),
+    "precision": round(precision_score(y_test, y_test_pred, zero_division=0), 4),
+    "balanced_accuracy": round(balanced_accuracy_score(y_test, y_test_pred), 4),
+    "recall": round(recall_score(y_test, y_test_pred, zero_division=0), 4),
+    "f1_score": round(f1_score(y_test, y_test_pred, zero_division=0), 4),
 }
 
 y_train_pred = busqueda.predict(x_train)
 train_precision_metrics = {
     "type": "metrics",
     "dataset": "train",
-    "precision": precision_score(y_train, y_train_pred, zero_division=0),
-    "balanced_accuracy": balanced_accuracy_score(y_train, y_train_pred),
-    "recall": recall_score(y_train, y_train_pred, zero_division=0),
-    "f1_score": f1_score(y_train, y_train_pred, zero_division=0),
+    "precision": round(precision_score(y_train, y_train_pred, zero_division=0), 4),
+    "balanced_accuracy": round(balanced_accuracy_score(y_train, y_train_pred), 4),
+    "recall": round(recall_score(y_train, y_train_pred, zero_division=0), 4),
+    "f1_score": round(f1_score(y_train, y_train_pred, zero_division=0), 4),
 }
 
 # Calcular matrices de confusión
