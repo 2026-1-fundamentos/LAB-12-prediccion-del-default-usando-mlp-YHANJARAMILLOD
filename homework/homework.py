@@ -113,7 +113,7 @@ train_precision_metrics = {
     "precision": round(precision_score(y_train, y_train_pred, zero_division=0), 4),
     "balanced_accuracy": round(balanced_accuracy_score(y_train, y_train_pred), 4),
     "recall": round(recall_score(y_train, y_train_pred, zero_division=0), 4),
-    "f1_score": round(f1_score(y_train, y_train_pred, zero_division=0), 4),
+    "f1_score": round(f1_score(y_train, y_train_pred, zero_division=0), 2),
 }
 
 # Calcular matrices de confusión
@@ -134,7 +134,7 @@ train_confusion_metrics = {
 # Guardar métricas
 os.makedirs("files/output/", exist_ok=True)
 
-with open("files/output/metrics.json", "w", encoding="utf-8") as file:
+with open("files/output/metrics.json", "w") as file:
     file.write(json.dumps(train_precision_metrics) + "\n")
     file.write(json.dumps(test_precision_metrics) + "\n")
     file.write(json.dumps(train_confusion_metrics) + "\n")
